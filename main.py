@@ -7,7 +7,7 @@ from apple import AppleMusic
 from deezer import Deezer
 import sys, getopt, shutil
 import os, re, random
-import notify2
+#import notify2
 from pygame import mixer
 
 
@@ -27,7 +27,7 @@ class MusicDownloader(object):
         #finding song on youtube
         self.__youtube.get(name, dur)
 
-        notify.send(f'Downloading from YouTube', downloaded=False)
+        #notify.send(f'Downloading from YouTube', downloaded=False)
 
         #downloading video from youtube
         if self.__youtube.download(
@@ -71,7 +71,7 @@ class MusicDownloader(object):
         info = self.__getSongInfoFromSpotify(uri)
 
         if info:
-            notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+            #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
             info['uri'] = str(info['uri']).split('/')[-1]
             info['uri'] = str(info['uri']).split('?')[0]
@@ -117,7 +117,7 @@ class MusicDownloader(object):
                 try:shutil.rmtree(f"cache/{info['uri']}")
                 except:pass
 
-                notify.send(f'{info["artist"][0]} - {info["name"]}')
+                #notify.send(f'{info["artist"][0]} - {info["name"]}')
                 return True
         return False
 
@@ -131,7 +131,7 @@ class MusicDownloader(object):
 
         if info:
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+            #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
             fixed_name = f'{info["artist"][0]} - {info["name"]}'
             fixed_name = fixed_name.replace('.','')
@@ -172,7 +172,7 @@ class MusicDownloader(object):
             except:
                 pass
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}')
+            #notify.send(f'{info["artist"][0]} - {info["name"]}')
             return True, info
         else:
             return False, None
@@ -198,7 +198,8 @@ class MusicDownloader(object):
             try:
                 state = self.downloadBySpotifyUri(str(song).split(':')[-1])
                 if not state:
-                    notify.send(f'Failed to download',True)
+                    print('failed')
+                    #notify.send(f'Failed to download',True)
             except:
                 print('Something went wrong!')
 
@@ -214,7 +215,7 @@ class MusicDownloader(object):
             info['uri'] = str(info['uri']).split('/')[-1]
             info['uri'] = str(info['uri']).split('?')[0]
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+            #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
             fixed_name = f'{info["artist"][0]} - {info["name"]}'
             fixed_name = fixed_name.replace('.','')
@@ -253,7 +254,7 @@ class MusicDownloader(object):
             try: shutil.rmtree(f"cache/{info['uri']}")
             except: pass
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}')
+            #notify.send(f'{info["artist"][0]} - {info["name"]}')
 
     def downloadBySpotifyUriAlbumMode(self, album_uri, path):
 
@@ -265,7 +266,7 @@ class MusicDownloader(object):
             info['uri'] = str(info['uri']).split('/')[-1]
             info['uri'] = str(info['uri']).split('?')[0]
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+            #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
             print(f'Downloading {i+1} of {len(playlist["tracks"])}')
 
@@ -306,7 +307,7 @@ class MusicDownloader(object):
             try: shutil.rmtree(f"cache/{info['uri']}")
             except: pass
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}')
+            #notify.send(f'{info["artist"][0]} - {info["name"]}')
 
     def downloadByDeezerUrl(self, url, path):
 
@@ -317,7 +318,7 @@ class MusicDownloader(object):
 
         if info:
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+            #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
             fixed_name = f'{info["artist"][0]} - {info["name"]}'
             fixed_name = fixed_name.replace('.','')
@@ -359,7 +360,7 @@ class MusicDownloader(object):
                 try:shutil.rmtree(f"cache/{info['uri']}")
                 except:pass
 
-                notify.send(f'{info["artist"][0]} - {info["name"]}')
+                #notify.send(f'{info["artist"][0]} - {info["name"]}')
                 return True
         return False
 
@@ -372,7 +373,7 @@ class MusicDownloader(object):
 
         for info, i in zip(playlist['tracks'],range(len(playlist['tracks']))):
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+            #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
             print(f'Downloading {i+1} of {len(playlist["tracks"])}')
 
@@ -413,7 +414,7 @@ class MusicDownloader(object):
             try: shutil.rmtree(f"cache/{info['uri']}")
             except: pass
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}')
+            #notify.send(f'{info["artist"][0]} - {info["name"]}')
 
     def downloadByDeezerUrlPlaylistMode(self, playlist_url, path):
 
@@ -424,7 +425,7 @@ class MusicDownloader(object):
 
         for info, i in zip(playlist['tracks'],range(len(playlist['tracks']))):
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+            #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
             print(f'Downloading {i+1} of {len(playlist["tracks"])}')
 
@@ -465,7 +466,7 @@ class MusicDownloader(object):
             try: shutil.rmtree(f"cache/{info['uri']}")
             except: pass
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}')
+            #notify.send(f'{info["artist"][0]} - {info["name"]}')
 
     def downloadFromYoutubeMusic(self, url, info, path):
 
@@ -473,7 +474,7 @@ class MusicDownloader(object):
 
         uri = info['uri']
 
-        notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
+        #notify.send(f'{info["artist"][0]} - {info["name"]}', downloaded=False)
 
         #downloading video from youtube
         if self.__youtube.download(
@@ -515,7 +516,7 @@ class MusicDownloader(object):
             try:shutil.rmtree(f"cache/{info['uri']}")
             except:pass
 
-            notify.send(f'{info["artist"][0]} - {info["name"]}')
+            #notify.send(f'{info["artist"][0]} - {info["name"]}')
             return True, info
         else:
             return False, None
@@ -602,7 +603,8 @@ _____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\\\____________/\\\\\\\\__/\\\\\\\\\\\\\\\
                     md = MusicDownloader()
                     state = md.downloadBySpotifyUri(array[i+1], CLI.path)
                     if not state:
-                        notify.send(f'Failed to download',True)
+                        print('failed')
+                        #notify.send(f'Failed to download',True)
                 except KeyboardInterrupt:
                     sys.exit(0)
                 sys.exit(0)
@@ -632,7 +634,8 @@ _____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\\\____________/\\\\\\\\__/\\\\\\\\\\\\\\\
                     md = MusicDownloader()
                     state = md.downloadByDeezerUrl(array[i+1], CLI.path)
                     if not state:
-                        notify.send(f'Failed to download',True)
+                        print('failed')
+                        #notify.send(f'Failed to download',True)
                 except KeyboardInterrupt:
                     sys.exit(0)
                 sys.exit(0)
@@ -669,7 +672,8 @@ _____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\\\____________/\\\\\\\\__/\\\\\\\\\\\\\\\
                      try:
                          state = md.downloadFromYoutubeMusic(url=link, info=tags, path=CLI.path)
                      except:
-                         notify.send(f'Failed to download',True)
+                         print('failed')
+                         #notify.send(f'Failed to download',True)
 
                  except KeyboardInterrupt:
                      sys.exit(0)
@@ -698,7 +702,8 @@ _____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\\\____________/\\\\\\\\__/\\\\\\\\\\\\\\\
                     state = md.downloadFromYoutubeMusic(url=array[i+1], info=info, path=CLI.path)
 
                     if not state:
-                       notify.send(f'Failed to download',True)
+                        print('failed')
+                       #notify.send(f'Failed to download',True)
 
                 except KeyboardInterrupt:
                     sys.exit(0)
@@ -725,7 +730,8 @@ _____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\\\____________/\\\\\\\\__/\\\\\\\\\\\\\\\
                    md = MusicDownloader()
                    state, data = md.downloadBySearchQuery(query=array[i+1], path=CLI.path)
                    if not state:
-                       notify.send(f'Failed to download',True)
+                       print('failed')
+                       #notify.send(f'Failed to download',True)
                 except KeyboardInterrupt:
                    sys.exit(0)
                 sys.exit(0)
@@ -734,7 +740,7 @@ _____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\\\____________/\\\\\\\\__/\\\\\\\\\\\\\\\
 
 
 
-
+'''
 class notify(object):
 
     image = os.getcwd() + '/Data/icon.png'
@@ -760,7 +766,7 @@ class notify(object):
             notify.sound(error)
             ns.show()
         except:pass
-
+'''
 
 def getCorrect(name):
     return re.sub(r"[\"#/@;:<>{}`+=~|.!?$%^&*№&]", string=name, repl='')
